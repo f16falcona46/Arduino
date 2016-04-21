@@ -1,0 +1,61 @@
+REMEMBER TO RUBBER BAND!!!!!!1!11one
+
+
+Send 13 bytes
+Byte  1: MUST be 255, helps it sync, I think
+    2-3: Value, in microseconds, of rotator base
+    4-5: Value, in microseconds, of elevator base 
+    6-7: Value, in microseconds, of elbow
+    8-9: Value, in microseconds, of wrist
+  10-11: Value, in microseconds, of right finger
+  12-13: Value, in microseconds, of left finger
+2byte values are arranged like this:
+Say we have a value 1000101011110000
+it gets split into 10001010 11110000
+if it's byte 2-3 then
+                   10001010 11110000
+                    ^byte 2  ^byte 3
+
+Try 1400us as a default value.
+
+Note: Try to make it so that each byte except the sync byte isn't 255, since it
+	might mess it up. It might not, though, so YMMV.
+
+Plug the red wire of the battery clip into the "+" rail (a hole labeled "+")
+Plug the black wire of the battery clip into the "-" rail (labeled "-")
+It will be communicating via USB serial port. I think it is ttyusbX or something
+	X is probably 0 or 1
+The baud rate is 115000 8bits+no parity+1 stop bit, true (not inverted). There's probably
+	docs online that tell you how to set these parameters. I think ioctl has something to
+	do with it.
+
+The pin assignments are as follows:
+6: rotator base
+7: elevator base
+8: elbow
+9: wrist
+10: right finger
+11: left finger
+
+It uses servos, changing the length of the pulse changes the position of the servo.
+I'm not sure if increasing the pulse width makes it go clockwise or the other way round.
+Note that the left and right fingers have to rotate in opposite directions.
+
+Try maintaining an array of bool and update whenever read doesn't return -1
+
+This uses the Servo library in the Wiring collection of Arduino libraries in case
+you need to write that in the technical documentation.
+
+The Arduino it uses is a 32K Arduino Nano clone with CH340G USB-Serial converter chip, in
+	case you need to add that in the documentation.
+	We use a 9V battery which is actually a rechargeable Li-ion battery with 2 cells of
+	3.7V each, for a total of 8.4V: this is done in order to allow higher currents than
+	possible with normal alkaline batteries.
+	
+Make sure to note that the computer actually runs off of less than 14.4V at each point!
+(11.1V max)
+
+
+
+
+and remember that YOU GOTTA RALLY!!

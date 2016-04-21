@@ -1,0 +1,5 @@
+PROGRAMMER.name=STANDALONE
+PROGRAMMER.communication=serial
+PROGRAMMER.protocol=arduino
+PROGRAMMER.force=true
+PROGRAMMER.speed=57600
