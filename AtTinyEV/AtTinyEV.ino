@@ -30,9 +30,14 @@ unsigned static volatile int left_count = 0;
 unsigned static volatile int left_count_large = 0;
 
 constexpr int dist_large = 0; //total distance = 65535*dist_large+dist
-constexpr int dist = 1242;
+constexpr int dist = 1400;
 
+//OLD EV
 //n=-100/553*(math.sqrt(219654068-138250*d)-15500)
+//d in centimeters
+
+//NEW EV
+//n=1.6058d-235.04
 //d in centimeters
 
 ISR(PCINT0_vect) {
@@ -57,13 +62,13 @@ int main() {
 	GIMSK |= (1<<PCIE); //enable pin change interrupt
 	PCMSK |= (1<<PCINT0); //pin change interrupt on pin 0
 	
-	sei();
-	
 	while (PINB&(1<<PB1)); //wait until button pressed
 	_delay_ms(500);
 	PORTB &= ~(1<<PB4); //brake off
 	_delay_ms(500);
 	PORTB |= (1<<PB3); //motor on
+	
+	sei();
 	
 	while (left_count_large < dist_large) {
 		while (left_count < 65535);

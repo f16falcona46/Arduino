@@ -20,11 +20,10 @@ int main() {
 	
 	EIMSK |= 1<<INT0;
 	
-	EICRA |= 1<<ISC11;
-	EICRA |= 1<<ISC01; //Not sure if this is for INT1 or INT0, but I think it is INT1
+	EICRA |= 1<<ISC00; //Not sure if this is for INT1 or INT0, but I think it is INT1
+	while (PORTD&(1<<PD6)); //set 300 got 274
 	sei();
 	
-	while (PORTD&(1<<PD6)); //set 300 got 274
 	PORTB ^=(1<<PB5);
 	_delay_ms(1000);
 	
@@ -36,5 +35,5 @@ int main() {
 	}
 	left_count = 0;
 	while (left_count < dist);
-	PORTD ^= (1<<PD5);
+	PORTD &= ~(1<<PD5);
 }
